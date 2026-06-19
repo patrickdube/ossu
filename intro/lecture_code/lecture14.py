@@ -8,11 +8,10 @@ def find_grades(grades, students):
 # print(find_grades(d, ['Matt', 'Katy']))
 
 def find_in_L(Ld, k):
-    k_flag = False
     for d in Ld:
         if k in d:
-            k_flag = True
-    return k_flag
+            return True
+    return False
 
 d1 = {1:2, 3:4, 5:6}
 d2 = {2:4, 4:6}
