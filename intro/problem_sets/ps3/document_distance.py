@@ -17,7 +17,7 @@ def load_file(filename):
     """
     Args:
         filename: string, name of file to read
-    Returns:
+   Returns:
         string, contains file contents
     """
     # print("Loading file %s" % filename)
@@ -54,13 +54,10 @@ def get_frequencies(input_iterable):
     Note: 
         You can assume that the only kinds of white space in the text documents we provide will be new lines or space(s) between words (i.e. there are no tabs)
     """
-    freq = {}
+    freq_dict = {}
     for i in input_iterable:
-        if i in freq:
-            freq[i] += 1
-        else:
-            freq[i] = 1
-    return freq
+        freq_dict[i] = freq_dict.get(i, 0) + 1
+    return freq_dict
 
 
 ### Problem 2: Letter Frequencies ###
@@ -100,8 +97,19 @@ def calculate_similarity_score(freq_dict1, freq_dict2):
          all frequencies in both dict1 and dict2.
         Return 1-(DIFF/ALL) rounded to 2 decimal places
     """
-    pass
+    DIFF = 0
+    ALL = 0
+    unique_elem_list = list(freq_dict1.keys() | freq_dict2.keys())
 
+    for i in unique_elem_list:
+        f1 = freq_dict1.get(i, 0)
+        f2 = freq_dict2.get(i, 0)
+        DIFF += abs(f1 - f2)
+        ALL += f1 + f2
+
+    similarity = 1 - (DIFF/ALL)
+
+    return round(similarity, 2)
 
 ### Problem 4: Most Frequent Word(s) ###
 def get_most_frequent_words(freq_dict1, freq_dict2):
@@ -194,28 +202,28 @@ if __name__ == "__main__":
     # print(friend_word_freq)   # should print {'hello': 1, 'friends': 1}
 
     ## Tests Problem 2: Get Letter Frequencies
-    freq1 = get_letter_frequencies('hello')
-    freq2 = get_letter_frequencies('that')
-    print(freq1)      #  should print {'h': 1, 'e': 1, 'l': 2, 'o': 1}
-    print(freq2)      #  should print {'t': 2, 'h': 1, 'a': 1}
+    # freq1 = get_letter_frequencies('hello')
+    # freq2 = get_letter_frequencies('that')
+    # print(freq1)      #  should print {'h': 1, 'e': 1, 'l': 2, 'o': 1}
+    # print(freq2)      #  should print {'t': 2, 'h': 1, 'a': 1}
 
     ## Tests Problem 3: Similarity
-    # test_directory = "tests/student_tests/"
-    # hello_world, hello_friend = load_file(test_directory + 'hello_world.txt'), load_file(test_directory + 'hello_friends.txt')
-    # world, friend = text_to_list(hello_world), text_to_list(hello_friend)
-    # world_word_freq = get_frequencies(world)
-    # friend_word_freq = get_frequencies(friend)
-    # word1_freq = get_letter_frequencies('toes')
-    # word2_freq = get_letter_frequencies('that')
-    # word3_freq = get_frequencies('nah')
-    # word_similarity1 = calculate_similarity_score(word1_freq, word1_freq)
-    # word_similarity2 = calculate_similarity_score(word1_freq, word2_freq)
-    # word_similarity3 = calculate_similarity_score(word1_freq, word3_freq)
-    # word_similarity4 = calculate_similarity_score(world_word_freq, friend_word_freq)
-    # print(word_similarity1)       # should print 1.0
-    # print(word_similarity2)       # should print 0.25
-    # print(word_similarity3)       # should print 0.0
-    # print(word_similarity4)       # should print 0.4
+    test_directory = "tests/student_tests/"
+    hello_world, hello_friend = load_file(test_directory + 'hello_world.txt'), load_file(test_directory + 'hello_friends.txt')
+    world, friend = text_to_list(hello_world), text_to_list(hello_friend)
+    world_word_freq = get_frequencies(world)
+    friend_word_freq = get_frequencies(friend)
+    word1_freq = get_letter_frequencies('toes')
+    word2_freq = get_letter_frequencies('that')
+    word3_freq = get_frequencies('nah')
+    word_similarity1 = calculate_similarity_score(word1_freq, word1_freq)
+    word_similarity2 = calculate_similarity_score(word1_freq, word2_freq)
+    word_similarity3 = calculate_similarity_score(word1_freq, word3_freq)
+    word_similarity4 = calculate_similarity_score(world_word_freq, friend_word_freq)
+    print(word_similarity1)       # should print 1.0
+    print(word_similarity2)       # should print 0.25
+    print(word_similarity3)       # should print 0.0
+    print(word_similarity4)       # should print 0.4
 
     ## Tests Problem 4: Most Frequent Word(s)
     # freq_dict1, freq_dict2 = {"hello": 5, "world": 1}, {"hello": 1, "world": 5}
