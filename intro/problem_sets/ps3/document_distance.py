@@ -99,14 +99,6 @@ def calculate_similarity_score(freq_dict1, freq_dict2):
     """
     DIFF = 0
     ALL = 0
-    unique_elem_list = list(freq_dict1.keys() | freq_dict2.keys())
-
-    for i in unique_elem_list:
-        f1 = freq_dict1.get(i, 0)
-        f2 = freq_dict2.get(i, 0)
-        DIFF += abs(f1 - f2)
-        ALL += f1 + f2
-
     similarity = 1 - (DIFF/ALL)
 
     return round(similarity, 2)
